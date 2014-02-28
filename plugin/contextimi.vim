@@ -27,28 +27,19 @@ endif
 let s:activatefunc = function(contextimi_activatefunc)
 
 " IMのオンもしくはオフが必要かを判定するための関数
-" @param active 1の場合は、オンにするかどうかを判定。
-"   0の場合は、オフにするかどうかを判定。
 " @param str cやsコマンドの書き換え元文字列
-" @return 1: オンにすると判断した場合、もしくはオフにすると判断した場合。
+" @return 1: オンにすると判断した場合。-1: オフにすると判断した場合。
 "   0: 何もしないと判断した場合。
-function! s:decideimcfunc_default(active, str)
-  " オンにするかどうかの判定
-  if a:active
-    " 日本語(ASCII以外の文字)が含まれる場合は、オンにする
-    if a:str =~ '[^\x00-\x7f]'
-      return 1
-    else
-      return 0
-    endif
-  else " オフにするかどうかの判定
-    " 日本語が含まれない場合は、オフにする
-    if a:str !~ '[^\x00-\x7f]'
-      return 1
-    else
-      return 0
-    endif
+function! s:decideimcfunc_default(str)
+  " 日本語(ASCII以外の文字)が含まれる場合は、オンにする
+  if a:str =~ '[^\x00-\x7f]'
+    return 1
   endif
+  " 日本語が含まれない場合は、オフにする
+  if a:str !~ '[^\x00-\x7f]'
+    return -1
+  endif
+  return 0
 endfunction
 
 " 行末コメント中に日本語があっても、行頭からCした場合はIMオフにしたい等の
@@ -76,9 +67,10 @@ function! s:SetIgnoreThisCmd(cmd)
 endfunction
 
 function! s:onoff(str)
-  if s:decideimcfunc(1, a:str)
+  let res = s:decideimcfunc(a:str)
+  if res > 0
     call s:activatefunc(1)
-  elseif s:decideimcfunc(0, a:str)
+  elseif res < 0
     " 書き換え対象文字列が、IMEオフにしないと入力が面倒な場合はオフにする
     " (IMEオンでも直接入力可能な文字列の場合はオフにしない)
     call s:activatefunc(0)
