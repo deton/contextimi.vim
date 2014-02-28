@@ -1,4 +1,4 @@
-# `c`,`s`,`r`コマンドで書き換え前の文字列に応じてIMオン/オフを切り替えるプラグイン
+# `c`,`s`,`r`コマンドで、書き換え前の文字列に応じてIMオン/オフを切り替えるVimプラグイン
 
 普段はtutcode keymapを使って日本語を入力しているのですが、
 ソースコード編集時に、
@@ -11,8 +11,8 @@
 
 以下の機能を提供します。
 
-* ASCII文字列を`c`や`s`で書き換える際は、IMをオフに切り替え
-* 日本語文字列を`c`や`s`で書き換える際は、IMをオンに切り替え
+* ASCII文字列を`c`、`s`、`r`で書き換える際は、IMをオフに切り替え
+* 日本語文字列を`c`、`s`、`r`で書き換える際は、IMをオンに切り替え
 
 使い始めたばかりですが、今のところほとんど違和感なく使えています。
 ("ASCIIで"を"日本語で"に書き換えようとすると
@@ -25,11 +25,11 @@ IMのオン/オフの切り替え制御は、デフォルトでは
 
 その他のIM切り替え方法に関しては、以下を参考にしてください。
 
-* [https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control](日本語入力固定モード)
+* [日本語入力固定モード](https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control)
 * `'imactivatekey'`関係
  * https://github.com/koron/imcsc-vim/
- * [http://www.kaoriya.net/blog/2013/07/15/](Ubuntu上のVimでIME(ibus)制御)
- * [https://github.com/vim-jp/issues/issues/444](CUIでもimaf/imsfを使いたい - Issue #444 - vim-jp/issues - GitHub)
+ * [Ubuntu上のVimでIME(ibus](http://www.kaoriya.net/blog/2013/07/15/)制御)
+ * [CUIでもimaf/imsfを使いたい - Issue #444 - vim-jp/issues - GitHub](https://github.com/vim-jp/issues/issues/444)
 
 IM切り替え方法のカスタマイズをしたい場合は、
 IM切り替えを行う関数を定義して、
@@ -90,7 +90,7 @@ let contextimi_decideimcfunc = 'TcvimeDecideImControl'
 ## 関連
 * `'imactivatekey'`関係
  * https://github.com/koron/imcsc-vim/
- * [http://www.kaoriya.net/blog/2013/07/15/](Ubuntu上のVimでIME(ibus)制御)
- * [https://github.com/vim-jp/issues/issues/444](CUIでもimaf/imsfを使いたい - Issue #444 - vim-jp/issues - GitHub)
-* [https://github.com/vim-jp/issues/issues/13](IMEのON/OFFをsyntaxで制御する - Issue #13 - vim-jp/issues - GitHub)
-* [https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control](日本語入力固定モード)
+ * [Ubuntu上のVimでIME(ibus](http://www.kaoriya.net/blog/2013/07/15/)制御)
+ * [CUIでもimaf/imsfを使いたい - Issue #444 - vim-jp/issues - GitHub](https://github.com/vim-jp/issues/issues/444)
+* [IMEのON/OFFをsyntaxで制御する - Issue #13 - vim-jp/issues - GitHub](https://github.com/vim-jp/issues/issues/13)
+* [日本語入力固定モード](https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control)
