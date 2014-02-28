@@ -28,7 +28,7 @@ IMのオン/オフの切り替え制御は、デフォルトでは
 * [日本語入力固定モード](https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control)
 * `'imactivatekey'`関係
  * https://github.com/koron/imcsc-vim/
- * [Ubuntu上のVimでIME(ibus](http://www.kaoriya.net/blog/2013/07/15/)制御)
+ * [Ubuntu上のVimでIME(ibus制御)](http://www.kaoriya.net/blog/2013/07/15/)
  * [CUIでもimaf/imsfを使いたい - Issue #444 - vim-jp/issues - GitHub](https://github.com/vim-jp/issues/issues/444)
 
 IM切り替え方法のカスタマイズをしたい場合は、
@@ -90,7 +90,7 @@ let contextimi_decideimcfunc = 'TcvimeDecideImControl'
 ## 関連
 * `'imactivatekey'`関係
  * https://github.com/koron/imcsc-vim/
- * [Ubuntu上のVimでIME(ibus](http://www.kaoriya.net/blog/2013/07/15/)制御)
+ * [Ubuntu上のVimでIME(ibus制御)](http://www.kaoriya.net/blog/2013/07/15/)
  * [CUIでもimaf/imsfを使いたい - Issue #444 - vim-jp/issues - GitHub](https://github.com/vim-jp/issues/issues/444)
 * [IMEのON/OFFをsyntaxで制御する - Issue #13 - vim-jp/issues - GitHub](https://github.com/vim-jp/issues/issues/13)
 * [日本語入力固定モード](https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control)
