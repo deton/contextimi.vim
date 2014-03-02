@@ -1,5 +1,10 @@
 # `c`,`s`,`r`コマンドで、書き換え前の文字列に応じてIMオン/オフを切り替えるVimプラグイン
 
+このプラグインは、以下の機能を提供します。
+
+* ASCII文字列を`c`、`s`、`r`で書き換える際は、IMをオフに切り替え
+* 日本語文字列を`c`、`s`、`r`で書き換える際は、IMをオンに切り替え
+
 普段はtutcode keymapを使って日本語を入力しているのですが、
 ソースコード編集時に、
 関数名書き換え等の際にたびたび日本語入力をオフにする操作を
@@ -8,11 +13,6 @@
 書き換え前の関数名はASCII文字しか使っていないので、
 こういう場合は最初から日本語入力はオフにしておいて欲しい、
 と思ったのでこのプラグインを作りました。
-
-以下の機能を提供します。
-
-* ASCII文字列を`c`、`s`、`r`で書き換える際は、IMをオフに切り替え
-* 日本語文字列を`c`、`s`、`r`で書き換える際は、IMをオンに切り替え
 
 使い始めたばかりですが、今のところほとんど違和感なく使えています。
 ("ASCIIで"を"日本語で"に書き換えようとすると
@@ -35,6 +35,7 @@ IM切り替え方法のカスタマイズをしたい場合は、
 IM切り替えを行う関数を定義して、
 その関数名を`contextimi_activatefunc`に設定してください
 (以下の設定例も参考)。
+
 関数の引数は`'imactivatefunc'`と同じです。
 
 ## IMオン/オフ切り替えを行うかどうかの判定方法のカスタマイズ
@@ -49,22 +50,20 @@ IMのオンもしくはオフが必要かを判定するための関数を定義して、
 `contextimi_decideimcfunc`オプションに設定してください。
 
 ## 設定例: tcvime(1.5.0)とtutcodep keymapの場合
+tcvimeは`keymap`を使うので、
+tcvime#Activate()では、`&iminsert`の値を1や0に設定しています。
 
-```vim:.vimrc
-function! TcvimeActivate(active)
-  if a:active
-    call tcvime#EnableKeymap()
-  else
-    call tcvime#DisableKeymap()
-  endif
-endfunction
-let contextimi_activatefunc = 'TcvimeActivate'
+TcvimeDecideImControl()では、
+tutcodep keymapの場合、数字や一部記号はlmapオンでも直接入力可能なので、
+それらの文字が書き換え対象の場合はIMをオフにしないようにしています。
+(意図しない時に切り替わる可能性を減らすため。)
 
+```vim
 function! TcvimeDecideImControl(str)
   if a:str =~ '[^\x00-\x7f]'
     return 1
   endif
-  " IMEオフにしないと入力が面倒な文字が含まれる場合はオフにする
+  " IMオフにしないと入力が面倒な文字が含まれる場合はオフにする
   " tutcodep keymapの場合、数字・一部記号・一部大文字はlmapオンでも直接入力可
   if a:str =~ '[^-0-9 -+:<-@[-`{-~]'
     return -1
@@ -72,6 +71,7 @@ function! TcvimeDecideImControl(str)
   return 0
 endfunction
 let contextimi_decideimcfunc = 'TcvimeDecideImControl'
+let contextimi_activatefunc = 'tcvime#Activate'
 ```
 
 ## 拡張案: `a`,`i`,`o`コマンドへの対応
