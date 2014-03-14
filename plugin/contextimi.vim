@@ -5,7 +5,7 @@ scriptencoding utf-8
 "                  日本語が含まれていればIMをオンに切り替え。
 "                  日本語が含まれていなければIMをオフに切り替え。
 " Maintainer: KIHARA Hideto <deton@m1.interq.or.jp>
-" Last Change: 2014-02-27
+" Last Change: 2014-03-14
 
 if exists('g:loaded_contextimi')
   finish
@@ -49,21 +49,14 @@ if !exists('contextimi_decideimcfunc')
 endif
 let s:decideimcfunc = function(contextimi_decideimcfunc)
 
-let s:ignorethiscmd = 0
+let s:iscscmd = 0
 
 " c,sコマンドの書き換え元文字列に応じて、IMをオンにしたりオフにしたり
 function! s:imcontrol_cs()
-  " a,i等ではv:operatorはsetされないので古い値が残ったまま
-  if s:ignorethiscmd == 0 && (v:operator ==? 'c' || v:operator ==? 's')
+  if s:iscscmd
     call s:onoff(@@)
     return
   endif
-  let s:ignorethiscmd = 0
-endfunction
-
-function! s:SetIgnoreThisCmd(cmd)
-  let s:ignorethiscmd = 1
-  return a:cmd
 endfunction
 
 function! s:onoff(str)
@@ -83,17 +76,25 @@ function! s:imcontrol_r()
   return 'r'
 endfunction
 
-" cとsの場合のみ制御したいが、InsertEnterだけではa等との区別が付けられないので
-nnoremap <expr> a <SID>SetIgnoreThisCmd('a')
-nnoremap <expr> A <SID>SetIgnoreThisCmd('A')
-nnoremap <expr> i <SID>SetIgnoreThisCmd('i')
-nnoremap <expr> I <SID>SetIgnoreThisCmd('I')
-nnoremap <expr> o <SID>SetIgnoreThisCmd('o')
-nnoremap <expr> O <SID>SetIgnoreThisCmd('O')
+function! s:set_iscscmd(cmd)
+  let s:iscscmd = 1
+  return a:cmd
+endfunction
+
+function! s:reset_iscscmd()
+  let s:iscscmd = 0
+endfunction
+
+nnoremap <expr> c <SID>set_iscscmd('c')
+nnoremap <expr> C <SID>set_iscscmd('C')
+nnoremap <expr> s <SID>set_iscscmd('s')
+nnoremap <expr> S <SID>set_iscscmd('S')
+
 " rに対しては、InsertEnterで&imiを変えても効かないようなので
 nnoremap <expr> r <SID>imcontrol_r()
 
 augroup ContextImi
   autocmd!
   autocmd InsertEnter * call <SID>imcontrol_cs()
+  autocmd InsertLeave * call <SID>reset_iscscmd()
 augroup END

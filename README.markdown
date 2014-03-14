@@ -93,4 +93,5 @@ let contextimi_activatefunc = 'tcvime#Activate'
  * [Ubuntu上のVimでIME(ibus制御)](http://www.kaoriya.net/blog/2013/07/15/)
  * [CUIでもimaf/imsfを使いたい - Issue #444 - vim-jp/issues - GitHub](https://github.com/vim-jp/issues/issues/444)
 * [IMEのON/OFFをsyntaxで制御する - Issue #13 - vim-jp/issues - GitHub](https://github.com/vim-jp/issues/issues/13)
+* [imactivatemap.vim: 日本語入力・編集用に別コマンドを割り当てる](https://github.com/deton/imactivatemap.vim)
 * [日本語入力固定モード](https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-japanese/ime-control)
